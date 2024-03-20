@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Overlay</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.v_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.v_image-wrapper {
+    width: 40%;
+    margin: 20px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 10px;
+    box-sizing: border-box; 
+}
+
+.v_image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.v_radio-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    margin-top: 10px;
+}
+
+.v_radio-btn {
+    margin: 5px; 
+}
+
+.v_vote-count {
+    margin-top: 5px;
+    text-align: center;
+    color: #777;
+}
+
+.v_video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+}
+
+.v_video-overlay .v_close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.v_video {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
+</head>
+<body>
+
+<div class="v_container">
+    <div class="v_image-wrapper">
+        <img src="logo.png" alt="Image 1" class="v_image" onclick="openVideo('video1.mp4')">
+        <div class="v_radio-container">
+            <input type="radio" id="radio1" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video1', this)">
+            <label for="radio1">A</label><br><span id="voteCount1" class="v_vote-count">Votes: 0</span>
+        </div>
+    </div>
+    
+    <div class="v_image-wrapper">
+        <img src="mainpic.jpg" alt="Image 2" class="v_image" onclick="openVideo('video2.mp4')">
+        <div class="v_radio-container">
+            <input type="radio" id="radio2" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video2', this)">
+            <label for="radio2">B</label><br><span id="voteCount2" class="v_vote-count">Votes: 0</span>
+        </div>
+    </div>
+    
+    <div class="v_image-wrapper">
+        <img src="profilepic.jpeg" alt="Image 3" class="v_image" onclick="openVideo('video3.mp4')">
+        <div class="v_radio-container">
+            <input type="radio" id="radio3" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video3', this)">
+            <label for="radio3">C</label><br><span id="voteCount3" class="v_vote-count">Votes: 0</span>
+        </div>
+    </div>
+    
+    <div class="v_image-wrapper">
+        <img src="logo.png" alt="Image 4" class="v_image" onclick="openVideo('video4.mp4')">
+        <div class="v_radio-container">
+            <input type="radio" id="radio4" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video4', this)">
+            <label for="radio4">D</label><br><span id="voteCount4" class="v_vote-count">Votes: 0</span>
+        </div>
+    </div>
+    
+    <div id="videoOverlay" class="v_video-overlay">
+        <span class="v_close-btn" onclick="closeVideo()">×</span>
+        <video id="video" class="v_video" controls autoplay>
+            <source id="videoSource" src="" type="video/mp4"> 
+        </video>
+    </div>
+</div>
+
+<script>
+var votes = {
+    video1: 0,
+    video2: 0,
+    video3: 0,
+    video4: 0
+};
+
+var radioButtons = document.querySelectorAll('.v_radio-btn');
+
+function openVideo(videoSrc) {
+    var videoOverlay = document.getElementById("videoOverlay");
+    var videoSource = document.getElementById("videoSource");
+    
+    videoOverlay.style.display = "block";
+    videoSource.src = videoSrc;
+    document.getElementById("video").load();
+}
+
+function closeVideo() {
+    var videoOverlay = document.getElementById("videoOverlay");
+    videoOverlay.style.display = "none";
+
+    var video = document.getElementById("video");
+    video.pause();
+}
+
+function updateVotes(video, radioBtn) {
+    if (radioBtn.disabled) return; 
+    
+    votes[video]++;
+    document.getElementById("voteCount" + video.charAt(video.length - 1)).innerText = "Votes: " + votes[video];
+    radioBtn.disabled = true; 
+    radioButtons.forEach(function(btn) {
+        if (btn !== radioBtn) {
+            btn.disabled = true;
+        }
+    });
+}
+</script>
+
+</body>
+</html>
