@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
     <style>
-        <!--jimitis gay-->
+        
     </style>
     </head>
     <body>
@@ -24,19 +24,42 @@
             <a href="cafe.html">Cafes</a>
             <a href="hospital.html">Hospitals</a>
         </div>
-        <div class="profile">
-            <img class="profile-img" src="profilepic.jpeg">
-            <div class="dropdown-content">
-                <img class="profile-img" src="profilepic.jpeg">
-                <form class="profile-form" action="#">
-                    <input type="text" placeholder="Username">
-                    <input type="password" placeholder="Password">
-                    <button type="submit">Sign In</button>
-                </form>
-                <a href="login.html">Sign Up</a>
+        <img src="blank.jpg" class="user-pic" onclick="toggleMenu()">
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="userinfo">
+                        <img src="IMG.png">
+                        <h2>YOUR NAME</h2>
+                    </div>
+                    <hr>
+
+                    <a href="Update.html" class="sunmenulink">
+                        <p>Update Account details</p>
+                        <span>></span>
+                    </a>
+
+                    <a href="Delete_Account.html" class="sunmenulink">
+                        <p>Delete Account</p>
+                        <span>></span>
+                    </a>
+
+                    <a href="login.html" class="sunmenulink">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+
+                </div>
             </div>
-        </div>
+
     </div>
+        <script>
+            let subMenu = document.getElementById("subMenu");
+    
+            function toggleMenu() {
+                subMenu.classList.toggle("open-menu");
+            }
+        </script>
     <div class="image-container">
         <img src="mainpic.jpg" class="mainpict">
         <div class="overlay">
