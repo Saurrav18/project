@@ -11,8 +11,20 @@
         
     </style>
     </head>
+   
     <body>
-
+    <?php
+  
+    $server="localhost";
+    $username="tech";
+    $password="password";
+    $database = "project";
+    $conn= mysqli_connect($server,$username,$password,$database);
+    if (!$conn){
+        echo "error";
+    }
+    session_start();
+    ?>
     <div class="navbar">
     
             <img src="logo.png" class="logoo">
@@ -30,7 +42,11 @@
                 <div class="sub-menu">
                     <div class="userinfo">
                         <img src="IMG.png">
-                        <h2>YOUR NAME</h2>
+                        <?php
+                        
+                         echo "<h1> welcome </h1>";
+                         echo $_SESSION['username'];
+                        ?>
                     </div>
                     <hr>
 
@@ -39,12 +55,12 @@
                         <span>></span>
                     </a>
 
-                    <a href="Delete_Account.html" class="sunmenulink">
+                    <a href="deleteaccount.php" class="sunmenulink">
                         <p>Delete Account</p>
                         <span>></span>
                     </a>
 
-                    <a href="login.html" class="sunmenulink">
+                    <a href="logout.php" class="sunmenulink">
                         <p>Logout</p>
                         <span>></span>
                     </a>
