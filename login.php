@@ -62,7 +62,7 @@
             echo  $_SESSION['username'];
         }
         else{
-            echo "wrong";
+            echo "wrong";   
         }
         }
         

@@ -112,43 +112,28 @@
     </div>  
     <br>
     <br> 
-    <div class="blog-container">
-        <div class="blog-post">
-            <img src="logo.png" alt="Example Image">
-            <div class="blog-post-title">Title of Blog Post 1</div>
-            <div class="blog-post-name">By juan</div>
-            <div class="blog-post-text">
-                est test test   test test test    test test test    test test test    test test test    test test test    test test test 
-            </div>
-        </div>
-        <div class="blog-post">
-            <img src="profilepic.jpeg" alt="Example Image">
-            <div class="blog-post-title">Title of Blog Post 2</div>
-            <div class="blog-post-name">By Monish</div>
-            <div class="blog-post-text">
-                est test test   test test test    test test test    test test test    test test test    test test test    test test test 
-            </div>
-        </div>
-        <div class="blog-post">
-            <img src="mainpic.jpg" alt="Example Image">
-            <div class="blog-post-title">Title of Blog Post 3</div>
-            <div class="blog-post-name">By Saurav</div>
-            <div class="blog-post-text">
-                est test test   test test test    test test test    test test test    test test test    test test test    test test test 
-            </div>
-        </div>
-        <div class="blog-post">
-            <img src="mainpic.jpg" alt="Example Image">
-            <div class="blog-post-title">Title of Blog Post 3</div>
-            <div class="blog-post-name">By reuben</div>
-            <div class="blog-post-text">
-               test test test   test test test    test test test    test test test    test test test    test test test    test test test 
-            </div>
-        </div>
-    </div>
+    <?php
+$sqlblog="select * from blog ORDER by id DESC;";
+$sqlblogg=mysqli_query($conn,$sqlblog);
+
+echo '<div class="blog-container">';
+for ($i = 0; $i < 4 && $row = mysqli_fetch_assoc($sqlblogg); $i++) {
+    echo '
+    <div class="blog-post">
+        <img src="logo.png" alt="Example Image">
+        <div class="blog-post-title">'. $row['blogtitle'] .'</div>
+        <div class="blog-post-name">By '. $row['username'] .'</div>
+        <div class="blog-post-text">'. $row['blogcontent'] .'</div>
+    </div>';
+}
+echo '</div>';
+?>
+
+
     <a href="writingblog.html" class="blog-newww" >
     <div class="blog-neww"><p>write your own blog</p></div>
     </a>
+   
     <br><br><br>
 
     <div class="eventtitle">

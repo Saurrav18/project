@@ -92,23 +92,43 @@
 
 <div class="container">
    
-    <form id="blogForm"  onsubmit="return showSuccessMessage()">
+    <form id="blogForm" method="post"  onsubmit="return showSuccessMessage()">
         <h1>Create Blog Post</h1>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
 
-        <label for="picture">Picture:</label>
-        <input type="file" id="picture" name="picture" accept="image/*" required>
 
         <label for="title">Blog Title:</label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="blogtitle" required>
 
         <label for="content">Blog Content:</label>
-        <textarea id="content" name="content" rows="6" required></textarea>
-
+        <textarea id="content" name="blogcontent" rows="6" required></textarea>
+        <!-- ><label for="picture">Picture:</label>
+        <input type="file" id="picture" name="blogpicture" accept="image/*" required>
+-->
+        <br>
+        <br>
         <input type="submit" value="Submit">
     </form>
-
+<?php
+$server="localhost";
+$usernam="tech";
+$passwor="password";
+$database = "project";
+$conn= mysqli_connect($server,$usernam,$passwor,$database);
+if (!$conn){
+    echo "error";
+}
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $blogtitle=$_POST['blogtitle'];
+    $blogcontent=$_POST['blogcontent'];
+    $username=$_SESSION['username'];
+    $sql="INSERT INTO `blog` (`blogtitle`, `blogcontent`, `username`) VALUES ('$blogtitle', '$blogcontent', '$username')";
+    $result = mysqli_query($conn,$sql);
+    if (!$result){
+        echo "hello";
+    }
+}
+?>
     <div id="successMessage" class="success-message">
         <h2>Blog Successfully Uploaded!</h2>
         <img src="logo.png">
@@ -117,7 +137,7 @@
 </div>
 
 <script>
-    function showSuccessMessage() {
+    function howSuccessMessage() {
         document.getElementById('blogForm').style.display = 'none';
         document.getElementById('successMessage').style.display = 'block';
         setTimeout(function() {
