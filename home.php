@@ -113,21 +113,29 @@
     <br>
     <br> 
     <?php
-$sqlblog="select * from blog ORDER by id DESC;";
-$sqlblogg=mysqli_query($conn,$sqlblog);
+$sqlblog = "SELECT * FROM blog ORDER BY id DESC;";
+$sqlblogg = mysqli_query($conn, $sqlblog);
 
-echo '<div class="blog-container">';
-for ($i = 0; $i < 4 && $row = mysqli_fetch_assoc($sqlblogg); $i++) {
-    echo '
-    <div class="blog-post">
-        <img src="logo.png" alt="Example Image">
-        <div class="blog-post-title">'. $row['blogtitle'] .'</div>
-        <div class="blog-post-name">By '. $row['username'] .'</div>
-        <div class="blog-post-text">'. $row['blogcontent'] .'</div>
-    </div>';
+if (mysqli_num_rows($sqlblogg) > 0) {
+    echo '<div class="blog-container">';
+    for ($i = 0; $i < 4 && $row = mysqli_fetch_assoc($sqlblogg); $i++) {
+        echo '
+        <div class="blog-post">
+            <img src="logo.png" alt="Example Image">
+            <div class="blog-post-title">'. $row['blogtitle'] .'</div>
+            <div class="blog-post-name">By '. $row['username'] .'</div>
+            <div class="blog-post-text">'. $row['blogcontent'] .'</div>
+        </div>';
+    }
+    echo '</div>';
+} else {
+
+    echo '<center><div class="blog-post">
+    No blogs available right now.
+    </div></center>';
 }
-echo '</div>';
 ?>
+
 
 
     <a href="writingblog.html" class="blog-newww" >
