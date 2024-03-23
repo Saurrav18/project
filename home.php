@@ -36,7 +36,7 @@
             <a href="cafe.html">Cafes</a>
             <a href="hospital.html">Hospitals</a>
         </div>
-        <img src="blank.jpg" class="user-pic" onclick="toggleMenu()">
+        <img src="blank .jpg" class="user-pic" onclick="toggleMenu()">
 
             <div class="sub-menu-wrap" id="subMenu">
                 <div class="sub-menu">
@@ -44,8 +44,8 @@
                         <img src="IMG.png">
                         <?php
                         
-                         echo "<h1> welcome </h1>";
-                         echo $_SESSION['username'];
+                         echo '<h1> welcome '. $_SESSION['username']. '</h1>';
+                        
                         ?>
                     </div>
                     <hr>
@@ -161,20 +161,42 @@ if (mysqli_num_rows($sqlblogg) > 0) {
 
 
     <br><br>
+    <?php
+session_start();
+
+if (!isset($_SESSION['vote'])) {
+    $_SESSION['vote'] = false;
+}
+?>
+
+<form action="test.php" method="POST">
     <div class="v_container">
-        <div class="v_title"><h1>Your daily dose of fun videos also dont forget to vote for your favourite one!</h1></div>
+        <div class="v_title"><h1>Your daily dose of fun videos also don't forget to vote for your favorite one!</h1></div>
         <div class="v_image-wrapper">
             <img src="image\thumb1.png" alt="Image 1" class="v_image" onclick="openVideo('vid/funnyvid1.mp4')">
             <div class="v_radio-container">
-                <input type="radio" id="radio1" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video1', this)">
-                <label for="radio1">A</label><br><span id="voteCount1" class="v_vote-count">Votes: 0</span>
+                <?php
+                if ($_SESSION['vote'] == TRUE) {
+                    echo '<input type="radio" id="radio2" name="videoSelection" value="1" class="v_radio-btn">
+                    <label for="radio1">A</label><br><span id="voteCount1" class="v_vote-count">Votes: 0</span>';
+                } else {
+                    echo 'ehehehhehe';
+                }
+                ?>
             </div>
         </div>
+        <input type="submit" value="Vote">
+    
+</form>
+
+
+
+
         
         <div class="v_image-wrapper">
             <img src="image\thumb2.png" alt="Image 2" class="v_image" onclick="openVideo('vid/funnyvid2.mp4')">
             <div class="v_radio-container">
-                <input type="radio" id="radio2" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video2', this)">
+                <input type="radio" id="radio2" name="videoSelection2" class="v_radio-btn" onclick="updateVotes('video2', this)">
                 <label for="radio2">B</label><br><span id="voteCount2" class="v_vote-count">Votes: 0</span>
             </div>
         </div>
@@ -182,7 +204,7 @@ if (mysqli_num_rows($sqlblogg) > 0) {
         <div class="v_image-wrapper">
             <img src="image\thumb3.png" alt="Image 3" class="v_image" onclick="openVideo('vid/funnyvideo3.mp4')">
             <div class="v_radio-container">
-                <input type="radio" id="radio3" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video3', this)">
+                <input type="radio" id="radio3" name="videoSelection3" class="v_radio-btn" onclick="updateVotes('video3', this)">
                 <label for="radio3">C</label><br><span id="voteCount3" class="v_vote-count">Votes: 0</span>
             </div>
         </div>
@@ -191,10 +213,11 @@ if (mysqli_num_rows($sqlblogg) > 0) {
             <img src="image\thumb4.png" alt="Image 4" class="v_image" onclick="openVideo('vid/funnyvid4.mp4')">
            
             <div class="v_radio-container">
-                <input type="radio" id="radio4" name="videoSelection" class="v_radio-btn" onclick="updateVotes('video4', this)">
+                <input type="radio" id="radio4" name="videoSelection4" class="v_radio-btn" onclick="updateVotes('video4', this)">
                 <label for="radio4">D</label><br><span id="voteCount4" class="v_vote-count">Votes: 0</span>
             </div>
         </div>
+        <input type="submit">
         
         <div id="videoOverlay" class="v_video-overlay">
             <span class="v_close-btn" onclick="closeVideo()">×</span>
@@ -204,13 +227,37 @@ if (mysqli_num_rows($sqlblogg) > 0) {
         </div>
     </div>
 </div>
+</form>
 
 
 
 
 
 
+    
+    
     <script>
+
+var radioButtons = document.querySelectorAll('.v_radio-btn');
+
+function openVideo(videoSrc) {
+    var videoOverlay = document.getElementById("videoOverlay");
+    var videoSource = document.getElementById("videoSource");
+    
+    videoOverlay.style.display = "block";
+    videoSource.src = videoSrc;
+    document.getElementById("video").load();
+}
+function closeVideo() {
+    var videoOverlay = document.getElementById("videoOverlay");
+    videoOverlay.style.display = "none";
+
+    var video = document.getElementById("video");
+    video.pause();
+}
+
+</script>
+<script>
         let slideIndex = 0;
         const slides = document.querySelectorAll('.carouselevent-images img');
     
@@ -240,47 +287,6 @@ if (mysqli_num_rows($sqlblogg) > 0) {
             window.location.href = url;
         }
     </script>
-    
-    <script>
-var votes = {
-    video1: 0,
-    video2: 0,
-    video3: 0,
-    video4: 0
-};
-
-var radioButtons = document.querySelectorAll('.v_radio-btn');
-
-function openVideo(videoSrc) {
-    var videoOverlay = document.getElementById("videoOverlay");
-    var videoSource = document.getElementById("videoSource");
-    
-    videoOverlay.style.display = "block";
-    videoSource.src = videoSrc;
-    document.getElementById("video").load();
-}
-function closeVideo() {
-    var videoOverlay = document.getElementById("videoOverlay");
-    videoOverlay.style.display = "none";
-
-    var video = document.getElementById("video");
-    video.pause();
-}
-
-function updateVotes(video, radioBtn) {
-    if (radioBtn.disabled) return; 
-    
-    votes[video]++;
-    document.getElementById("voteCount" + video.charAt(video.length - 1)).innerText = "Votes: " + votes[video];
-    radioBtn.disabled = true; 
-    radioButtons.forEach(function(btn) {
-        if (btn !== radioBtn) {
-            btn.disabled = true;
-        }
-    });
-}
-</script>
-
     
     
     </body>

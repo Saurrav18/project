@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,35 +8,33 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
- 
+    <video autoplay loop muted plays-inline class="backvideo"
+    src="Puppies Playing in grass _ No copyright video.mp4"></video>
+    <center>
+        <div class="container">
+        <p class="text"> WELCOME TO PETPAL</p>
+    </div>
+    <br><br><br>
     <div class="wrapper">
-        <form action="" method="POST">
+        <form action="login.php" method="post">
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" id="loginusername" name="username" placeholder="Username" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" name="password" required>
+                <input type="password" id="loginpass" name="password" placeholder="Password" required>
                 <i class='bx bxs-lock-alt'></i>
-            </div>
-
-            <div class="remember-forget">
-                <label><input type="checkbox">Remember me</label>
-                <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Forget password?</a>
             </div>
             <br>
             <button type="submit" class="btn">Login</button>
             <br><br>
             <div class="register-link">
-                <p>Don't have an account? <a herf="#">Register</a></p>
+                <p>Don't have an account? <a href="signup.php">Register</a></p>
             </div>
-
 
         </form>
     </div>
-    <br>
-
     <?php
     $server="localhost";
     $username="tech";
@@ -60,6 +58,8 @@
             $_SESSION['username']=$username;
             
             echo  $_SESSION['username'];
+            header("location: home.php");
+
         }
         else{
             echo "wrong";   
@@ -68,5 +68,4 @@
         
     ?>
 </body>
-
 </html>

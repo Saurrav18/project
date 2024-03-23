@@ -8,29 +8,33 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-  
+    <video autoplay loop muted plays-inline class="backvideo"
+    src="Puppies Playing in grass _ No copyright video.mp4"></video>
+    <center>
+        <div class="container">
+        <p class="text"> WELCOME TO PETPAL</p>
+    </div>
+    <br><br><br>
     <div class="wrapper">
-        <form  method="POST">
-            <h1>Login</h1>
+        <form action="signup.php" method="POST">
+            <h1>SIGN UP</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" id="signupusername" name="username" placeholder="Username" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" name="password" required>
-                <i class='bx bxs-lock-alt'></i>
+                <input type="text" id="signupemail" name="password" placeholder="Password" required>
+                <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder=" Confirm Password" name="cpassword" required>
+                <input type="password" id="signuppass" name="cpassword" placeholder="Confirm Password" required>
                 <i class='bx bxs-lock-alt'></i>
             </div>
-
-            
             <br>
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn">Sign Up</button>
             <br><br>
             <div class="register-link">
-                <p>Don't have an account? <a herf="#">Register</a></p>
+                <p>Already have an account? <a href="login.php">Log in</a></p>
             </div>
 
         </form>
@@ -64,6 +68,7 @@
         if ($password == $cpassword && $exist==false){
             $sql="INSERT INTO `user` (`username`, `password`) VALUES ( '$username', '$password');";
            $result = mysqli_query($conn,$sql);
+           
         }
         else{
             $show = "Password doesnt match";
